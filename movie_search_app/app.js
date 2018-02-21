@@ -15,8 +15,16 @@ app.get("/results", function(req, res){
 	request(url, function(error, response, body){
 		if(!error && response.statusCode == 200){
 			var data = JSON.parse(body);
-			res.render("results", {data : data});
-			//res.send(result["Search"][0]["Title"]);	
+			console.log("Data fetched from server:- " + data);
+			if(data["Response"]=="False"){				
+				console.log("Found nothing");
+				res.render("zeroresults");
+			}else{
+				res.render("results", {data : data});
+				//res.send(result["Search"][0]["Title"]);		
+			}
+
+			
 		}		
 	});
 });
